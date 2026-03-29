@@ -1,4 +1,6 @@
-export function getNurseClaraReply(message: string) {
+type NurseClaraContext = "home" | "activity" | "post" | "general";
+
+export function getNurseClaraReply(message: string, context: NurseClaraContext = "general") {
   const input = message.toLowerCase().trim();
 
   if (!input) {
@@ -10,10 +12,16 @@ export function getNurseClaraReply(message: string) {
   }
 
   if (input.includes("plan") || input.includes("today") || input.includes("schedule")) {
-    return "Today’s plan is a gentle routine with simple pacing. You can tap an activity in Home, follow the timer in Focus Mode, and answer the short check-in when you finish.";
+    if (context === "activity") {
+      return "You are in today’s walking session now. Keep to the gentle pace already prescribed, and I can stay with you while you continue.";
+    }
+    return "Today’s plan is a gentle 20-minute walk with a short reflection afterward. I can help you move through it one calm step at a time.";
   }
 
   if (input.includes("walk") || input.includes("exercise") || input.includes("session")) {
+    if (context === "post") {
+      return "You have already done something meaningful today. I can help you reflect on how it felt and note any discomfort for your care team.";
+    }
     return "Please follow the activity your care team already set for you. I can repeat the steps and help you move through the session calmly, but I do not change your exercise plan.";
   }
 
@@ -23,9 +31,12 @@ export function getNurseClaraReply(message: string) {
     input.includes("chest") ||
     input.includes("pressure") ||
     input.includes("short of breath") ||
-    input.includes("breathless")
+    input.includes("breathless") ||
+    input.includes("nausea") ||
+    input.includes("racing heart") ||
+    input.includes("irregular heartbeat")
   ) {
-    return "Thank you for telling me. That sounds important, and I want to be careful. I can help mark this for your care team right away, but I cannot give medical advice.";
+    return "Please stop immediately. I’m concerned about your symptoms. Contact your care team or emergency services right now.";
   }
 
   if (input.includes("sad") || input.includes("worried") || input.includes("anxious") || input.includes("afraid")) {
@@ -33,7 +44,22 @@ export function getNurseClaraReply(message: string) {
   }
 
   if (input.includes("check-in") || input.includes("questions")) {
-    return "The check-in is five short questions about energy, breathing, dizziness, chest discomfort, and confidence. It helps your care team stay informed after your session.";
+    if (context === "home") {
+      return "This morning’s check-in is just two simple questions about how you feel and whether you have any warning symptoms before your walk.";
+    }
+    return "The check-in helps your care team stay informed about effort, discomfort, and how today’s session felt for you.";
+  }
+
+  if (input.includes("tired") || input.includes("rest") || input.includes("break")) {
+    return "It is alright to take a slower moment. You can pause, catch your breath, and decide whether you are ready to continue.";
+  }
+
+  if (context === "activity") {
+    return "You are doing well staying with the walk. Keep listening to your body, and tell me right away if anything feels concerning.";
+  }
+
+  if (context === "post") {
+    return "Thank you for checking in after your activity. Your reflection matters, and it can help your care team understand how the session went.";
   }
 
   return "I can help explain today’s routine, repeat your session steps, or help you share concerns with the care team. If something feels worrying, I can help flag it for follow-up.";

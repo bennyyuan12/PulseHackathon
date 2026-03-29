@@ -82,17 +82,17 @@ export function VoiceAssistantPanel() {
     setQuestion("");
     setStatus("Nurse Clara is answering...");
     try {
-      const response = await fetch("/api/nurse-clara", {
+      const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: cleanMessage })
+        body: JSON.stringify({ message: cleanMessage, context: "general" })
       });
 
-      const data = (await response.json()) as { reply: string };
-      setMessages((current) => [...current, { role: "assistant", text: data.reply }]);
-      setLastReply(data.reply);
+      const data = (await response.json()) as { response: string };
+      setMessages((current) => [...current, { role: "assistant", text: data.response }]);
+      setLastReply(data.response);
       setStatus("Nurse Clara answered.");
-      speak(data.reply);
+      speak(data.response);
     } catch {
       const fallback =
         "I had a little trouble answering just now. Please try again, and if something feels concerning I can still help you flag it for the care team.";
