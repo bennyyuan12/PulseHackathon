@@ -1,8 +1,25 @@
-# PulseCircle
+# PulseCircle / PulseHackathon
+
+This repository now contains both:
+
+- the original PulseHackathon product specification files
+- the deployable PulseCircle frontend MVP web app
+
+## Repository contents
+
+### Product specs
+
+- `00_shared_project_spec.md`
+- `01_patient_app_spec.md`
+- `02_care_circle_spec.md`
+- `03_ai_backend_spec.md`
+- `04_clinician_dashboard_spec.md`
+
+### PulseCircle app
 
 PulseCircle is a frontend-first hackathon MVP for a home cardiac rehabilitation companion. It is built for fast demos, safe healthcare-adjacent framing, and easy deployment to GitHub and Vercel.
 
-## Stack
+## App stack
 
 - Next.js App Router
 - TypeScript
@@ -11,12 +28,12 @@ PulseCircle is a frontend-first hackathon MVP for a home cardiac rehabilitation 
 - lucide-react
 - Framer Motion
 
-## What is included
+## App features
 
 - Patient onboarding with mocked medical-record upload and simulated OCR parsing
-- Patient home page with streak hero, weekly schedule, and session CTA
+- Patient home page with iPhone-first layout, itinerary list, and progress tracking
 - Persistent Nurse Clara assistant UI with chat and voice-mode shell
-- Guided training session flow with mocked wearable metrics
+- Guided focus-mode exercise flow with timer and pulsing heart
 - Five-question post-session check-in with safe escalation state
 - Encouragement feed for friends, family, and approved volunteers
 - Volunteer submission and moderation review flows
@@ -81,6 +98,7 @@ npm run dev
 - `/community`
 - `/encouragement`
 - `/assistant`
+- `/personal-info`
 
 ### Support / volunteer
 
@@ -101,16 +119,6 @@ npm run dev
 5. Deploy.
 
 No custom Vercel configuration is required for this MVP.
-
-## GitHub readiness
-
-This repo includes:
-
-- `.gitignore`
-- `.env.example`
-- clear app/component/data/lib structure
-- production build scripts in `package.json`
-- deployment notes in this README
 
 ## Future production integrations
 
